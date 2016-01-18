@@ -1,0 +1,187 @@
+<div class="container-fluid dark-font-color">
+    <div class="row main-block">
+        <div class="text-center light-font-color">
+            <h1>Here You can see all your wishes</h1>
+        </div>
+        <hr>
+        <div class="col-md-12">
+            <div class="container">
+                <div class="row" >
+                    <div class="col-md-4 block-wish-item" ng-repeat="wish in wishes" >
+                        <div ng-show="wish.id==editWishObj.id" class="panel panel-primary wish-item block-wish-item" >
+                            <div class="panel-heading" align="center">Edit wish</div>
+                            <div class="panel-body">
+                                <form name="editWishForm"  novalidate>
+                                    <input ng-model="editWishObj.name"  class="form-control"  placeholder="Enter the title:" required>
+                                    <div align="center" >
+                                        <div class="upload-image" ng-show="!editWishForm.file2.$valid && !editWishObj.photo">
+                                            <input ng-show="!editWishObj.photo" ngf-select ng-model="editWishObj.photo" accept="image/*" type="file" name="file2" required>
+                                        </div>
+                                        <div class="upload-tmp-image"  ng-show="!editWishForm.file2.$valid && editWishObj.photo">
+                                            <div class="close-upload-file uploaded-image" ng-click="editWishObj.photo = null" >
+                                                <img src="/img/cancel.png" >
+                                            </div>
+                                            <img  ng-src="{{editWishObj.photo}}" class="uploaded-image" >
+                                        </div>
+                                        <div class="upload-tmp-image"  ng-show="editWishForm.file2.$valid">
+                                            <div class="close-upload-file uploaded-image" ng-click="editWishObj.photo = null" >
+                                                <img src="/img/cancel.png" >
+                                            </div>
+                                            <img  ngf-thumbnail="editWishObj.photo" class="uploaded-image" >
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div align="center" >
+                                        <textarea ng-model="editWishObj.description"  class="span textarea-style" placeholder="Type description" rows="6" ></textarea>
+                                        <input ng-model="editWishObj.link" class="form-control block-margin"  placeholder="Enter the link:" required>
+                                    </div>
+
+                                    <div align="center">
+
+                                        <div class="row">
+                                            <div class="col-md-12 add-wish-select">
+                                                <select ng-model="editWishObj.category"
+                                                        ng-options="object.name for object in categoryItems"
+                                                        class="form-control input-sm"
+                                                        required>
+                                                    <option value="">-- Choose category --</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+
+                                        <div class="col-md-6 col-md-offset-6">
+                                            <div class="form-Published" ng-init="publish=true">
+                                                <button type="submit" ng-click="editWish()"  class="btn btn-primary">Save</button>
+                                                <button class="btn btn-danger" id="2" ng-click="abortEdit()">Cancel</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+
+                        <div ng-show="wish.id != editWishObj.id " class="panel panel-primary wish-item block-wish-item" >
+                            <div class="panel-heading" align="center">{{ wish.name }}</div>
+                            <div class="panel-body">
+                                <div align="right" class="add-cursor-pointer">
+                                    <a  ng-click="onEditWishClick(wish)"><span class='fa fa-edit'></span>Edit</a>
+                                    <a  ng-click="deleteWish(wish)"><span class='fa fa-trash-o'></span>Delete</a>
+                                </div>
+                                <br>
+                                <div align="center" >
+                                    <img ng-src="{{ wish.photo }}" width="320" height="240">
+                                </div>
+                                <br>
+                                <div align="center">
+                                    <form accept-charset="UTF-8" action="" method="POST">
+                                        <textarea disabled="disabled"
+                                                  class="span textarea-style-main"
+                                                  rows="6" >{{ wish.description }}</textarea>
+                                    </form>
+                                </div>
+
+                                <div align="right">
+                                    <p><a class= "label label-info ">{{wish.category}}</a></p>
+                                </div>
+
+                                <div align="right">
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <p><a class="btn btn-primary btn-m" href="{{wish.link}}" target="_blank" role="button"><span class="fa fa-gift fa-lg"></span> Where to buy</a></p>
+
+                                        </div>
+
+                                        <div class="col-md-8"></div>
+
+                                        <div class="col-md-2">
+                                            <div class="form-Published pull-right">
+                                                <p ng-show="wish.publish_state"><a class= "btn btn-m btn-success" ng-click="updatePublishStateFalse(wish)">Published</a></p>
+                                                <p ng-show="!wish.publish_state"><a class= "btn btn-m btn-warning" ng-click="updatePublishStateTrue(wish)">Unpublished</a></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div  class="col-md-4 add-wish-button" ng-show="showAddButton">
+                        <div id="wish-add-button" ng-disabled="showForm" ng-click="showAddWishForm()">
+                            <img  src="/img/plus.png" >
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 " ng-show="showForm">
+                        <div class="panel panel-primary wish-item block-wish-item" >
+                            <div class="panel-heading" align="center">Add wish</div>
+                            <div class="panel-body">
+                                <form name="addWishForm" ng-submit="addWish()" novalidate>
+                                    <input ng-model="wishData.name"
+                                           id="input-name"
+                                           class="form-control"
+                                           placeholder="Enter the title:"
+                                           name="name"
+                                           required>
+                                    <div align="center" >
+                                        <div class="upload-image" ng-show="!addWishForm.file.$valid">
+                                            <input ngf-select ng-model="wishData.photo" accept="image/*" type="file" name="file" required>
+                                        </div>
+
+                                        <div class="upload-tmp-image"  ng-show="addWishForm.file.$valid">
+                                            <div class="close-upload-file uploaded-image" ng-click="wishData.photo = null" >
+                                                <img src="/img/cancel.png" >
+                                            </div>
+                                            <img  ngf-thumbnail="wishData.photo" class="uploaded-image" >
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div align="center">
+                                        <textarea ng-model="wishData.description"
+                                                  class="span textarea-style"
+                                                  placeholder="Type description"
+                                                  rows="6"
+                                                  name="description">
+                                        </textarea>
+
+                                        <input ng-model="wishData.link"
+                                               id="input-link"
+                                               class="form-control"
+                                               placeholder="Enter the link:"
+                                               name="link">
+
+                                        <div class="row">
+                                            <div class="col-md-12 add-wish-select block-margin-top">
+                                                <select ng-model="wishData.category"
+                                                        ng-options="object.name for object in categoryItems"
+                                                        class="form-control input-sm"
+                                                        required>
+                                                    <option value="">-- Choose category --</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+
+                                            <div class="col-md-6 col-md-offset-6">
+                                                <form class="form-Published" ng-init="publish=true">
+                                                    <button type="submit" class="btn btn-primary">Add</button>
+                                                    <button class="btn btn-danger"  ng-click="hideAddWishForm()">Cancel</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

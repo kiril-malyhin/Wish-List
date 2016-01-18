@@ -1,0 +1,81 @@
+<div class="container-fluid main-block" >
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3 jumbotron">
+            <div class="row">
+                <div class="col-md-4">
+                    <div ui-sref="friends" class="hover-circle-block profile-circle-block text-center profile-block-position">
+                        <div class="row">
+                            <h2>{{ user.count_friends }}</h2>
+                        </div>
+                        <div class="row">
+                            <h5>Friends</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 text-center">
+                    <form name="myForm">
+                        <div class="btn-group" dropdown is-open="status.isopen">
+                            <div ng-if="!myForm.file.$valid" class="photo-inner profile-block-position profile-circle-block" dropdown-toggle>
+                                <img ng-src="{{user.photo }}" class="profile-image-block">
+                            </div>
+                            <div ng-if="myForm.file.$valid" class="profile-block-position profile-circle-block">
+                                <img  ngf-thumbnail="picFile" class="profile-image-block">
+                            </div>
+                            <ul class="dropdown-menu" role="menu">
+                                <li class="inner">
+                                    <div class="file_upload">
+                                        <input type="file" ngf-select ng-model="picFile" name="file"
+                                               accept="image/*" required>
+                                        <span class="fa fa-plus"></span> Загрузить изображение
+                                    </div>
+
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="row top-space" ng-show="myForm.$valid">
+                            <button  class="btn btn-success" ng-click="uploadPic(picFile)">Submit</button>
+                            <button class="btn btn-danger" ng-click="picFile = null">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-4">
+                    <div ui-sref="wish-list" class="hover-circle-block profile-circle-block profile-block-position text-center">
+                        <div class="row">
+                            <h2>{{ user.count_wishes }}</h2>
+                        </div>
+                        <div class="row">
+                            <h5>Wishes</h5>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <div class="row">
+                        <h3>{{ user.first_name }} {{ user.last_name }}</h3>
+                    </div>
+                </div>
+            </div>
+            <ul class="list-group profile-info-block">
+                <li class="list-group-item">
+                    <span class="badge">{{ user.email }}</span>
+                    Your email:
+                </li>
+                <li class="list-group-item">
+                    <span class="badge">{{ user.phone }}</span>
+                    Your phone:
+                </li>
+                <li class="list-group-item">
+                    <span class="badge">{{ user.address }}</span>
+                    Your address:
+                </li>
+            </ul>
+            <div ng-if="changePasswordBtn" class="row">
+                <div class="col-md-12 text-center block-margin-top">
+                    <button type="button" ui-sref="change-password" class="btn btn-primary">Change password</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

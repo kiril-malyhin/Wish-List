@@ -1,0 +1,89 @@
+.profile-circle-block{
+  height: 124px;
+  width: 124px;
+  border: 2px solid #777;
+  border-radius: 50%;
+  background-color: #ffffff;
+  color: #777;
+}
+.hover-circle-block:hover{
+  cursor: pointer;
+  border-color: #0060ff;
+  color: #0060ff;
+  background-color: #d6cbff;
+  transition: background-color 0.4s, color 0.4s, border-color 0.4s;
+}
+
+.file_upload {
+  /* Для того, чтобы спозиционировать input
+     относительно контейнера. */
+/*  position: relative;*/
+  /* Скрываем неумещающуюся часть input-а. */
+  overflow: hidden;
+
+  /* Украшательство: */
+  background: #eee;
+  border: 1px solid #ccc;
+ /* font-size: 30px;*/
+  line-height: 1;
+  text-align: center;
+  padding: 15px;
+  width: 100%;
+}
+
+.file_upload input[type=file] {
+  /* Позиционируем правый верхний край
+     input поверх нашего контейнера.
+     Правый верхний потому как именно там
+     у нас кнопка. */
+  position: absolute;
+  top: 0; right: 0;
+
+  /* Делаем input побольше, чтобы он точно
+     перекрыл контейнер. */
+  font-size: 200px;
+
+  /* Делаем input невидимым. По-другому нельзя,
+     иначе браузер не будет на него реагировать. */
+  opacity: 0;
+  filter: alpha(opacity=0);
+
+  /*  Украшательства: */
+  cursor: pointer;
+}
+
+.profile-image-block{
+  height: 122px;
+  width: 122px;
+  border-radius: 50%;
+}
+
+.photo-inner{
+
+}
+
+.inner:hover{
+  cursor: pointer;
+}
+
+.photo-inner:hover{
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.3s;
+}
+
+.profile-border{
+  border: 2px solid #777;
+}
+
+.profile-block-position{
+  margin: auto;
+}
+.profile-info-block{
+  width: 70%;
+  margin: auto;
+}
+
+.top-space{
+  margin-top: 10px;
+}

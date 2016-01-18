@@ -1,0 +1,51 @@
+<div class="container">
+
+    <div class="row">
+        <div class="text-center main-block light-font-color">
+            <h1>Here You can see wishes of <user-link data="currentUser"></user-link></h1>
+        </div>
+        <hr>
+        <div ng-if="!wishes || wishes.length == 0" class="centered-info light-font-color" >
+            <h1>No wishes found.</h1>
+        </div>
+        <div class="col-lg-4 col-md-offset-0">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 " ng-repeat="wish in wishes">
+                        <div class="panel panel-primary wish-item">
+                            <div class="panel-heading" align="center">{{ wish.name }}</div>
+                            <div class="panel-body">
+                                <br>
+
+                                <div align="center">
+                                    <img ng-src="{{ wish.photo }}" width="320" height="240">
+                                </div>
+                                <br>
+
+                                <div align="center">
+                                    <form accept-charset="UTF-8" action="" method="POST">
+                                        <textarea disabled="disabled" class="span textarea-style"
+                                                  placeholder="Type description" rows="6">{{ wish.description }}</textarea>
+                                    </form>
+                                </div>
+
+                                <div align="right">
+
+                                    <p><a class= "label label-info ">{{wish.category}}</a></p>
+
+                                    <p><a class="btn btn-primary btn-m" href="{{wish.link}}" target="_blank" role="button"><span class="fa fa-gift fa-lg"></span> Present</a></p>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+
+

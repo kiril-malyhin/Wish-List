@@ -1,0 +1,20 @@
+{% extends "layouts/main.html" %}
+
+{% block content %}
+
+    <top-menu></top-menu>
+    <div class="body-main-block">
+        <ui-view></ui-view>
+    </div>
+    <bottom-footer></bottom-footer>
+
+{% endblock %}
+
+{% block scripts %}
+
+    <script type="text/javascript">
+        window.embeddedData = {{ embeddedData | stringify | safe }};
+    </script>
+
+{% endblock %}
+

@@ -1,0 +1,59 @@
+<div class="container-fluid" >
+    <div class="col-md-6 col-md-offset-3 jumbotron main-block">
+        <h2>All users</h2>
+        <hr>
+        <div class="row">
+            <div class="col-md-12">
+                <form ng-submit="searchUsers()">
+                    <div class="input-group">
+                        <input ng-model="search" type="text" class="form-control" placeholder="Search for...">
+                        <div class="input-group-btn">
+                            <button ng-disabled="isDisabledSearchBtn" ng-click="loadUsers()" class="btn btn-default" type="button"><span class="fa fa-close"></span></button>
+                            <button class="btn btn-default" type="submit">Search!</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <hr>
+        <div ng-if="!users || users.length < 1" class="centered-info">
+            <h3>No users found.</h3>
+        </div>
+        <div ng-if="users.length > 0" class="centered-info" ng-repeat="user in users">
+            <div class="row">
+                <div class="col-md-4">
+                    <img ng-src="{{ user.photo }}" class="profile-image-block profile-border">
+                </div>
+                <div class="col-md-4">
+                    <h3><user-link data="user"></user-link></h3>
+                    <h6>{{ user.email }}</h6>
+                    <h5 ng-if="user.status==='friend'" ><span class="label label-info">{{ user.category }}</span></h5>
+                </div>
+                <div class="col-md-4 text-align-right">
+
+                    <!-- Single button -->
+                    <div ng-if="user.status!=='friend'" class="btn-group row" dropdown is-open="status.isopen">
+                        <p><button class="btn btn-primary btn-sm" dropdown-toggle type="button"><span class="fa fa-plus"></span> Add to friends <span class="caret"></span></button></p>
+                        <ul class="dropdown-menu" role="menu">
+                            <li class="add-cursor-pointer" ng-repeat="category in categories" ng-click="addFriend(user.id, category.id)" ><a>{{ category.name }}</a></li>
+                        </ul>
+                    </div>
+                    <div ng-if="user.status==='friend'" ng-click="removeFriend(user.id)" class="row">
+                        <p><a class="btn btn-danger btn-sm" role="button"><span class="fa fa-close"></span> Remove from friends</a></p>
+                    </div>
+                    <div ng-if="user.status==='friend'" class="btn-group row" dropdown is-open="status.isopen">
+                        <p><button class="btn btn-primary btn-sm" dropdown-toggle type="button"><span class="fa fa-edit"></span> Edit category <span class="caret"></span></button></p>
+                        <ul class="dropdown-menu" role="menu">
+                            <li class="add-cursor-pointer" ng-if="category.name != user.category" ng-repeat="category in categories" ng-click="editCategory(user.id, category.id)" ><a>{{ category.name }}</a></li>
+                        </ul>
+                    </div>
+                    <div class="row">
+                        <wish-link data="user"></wish-link>
+                    </div>
+
+                </div>
+            </div>
+            <hr class="friends-hr-style"/>
+        </div>
+    </div>
+</div>

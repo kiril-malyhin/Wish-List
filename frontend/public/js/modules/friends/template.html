@@ -1,0 +1,67 @@
+<div class="container-fluid" >
+    <div class="col-md-6 col-lg-offset-3 jumbotron main-block" >
+        <h2>Friends</h2>
+        <hr>
+        <div ng-if="!friends || friends.length < 1" class="centered-info">
+            <h3>No friends found.</h3>
+        </div>
+        <div class="centered-info" ng-repeat="friend in friends" ng-if="friend.status==='request'">
+            <div class="row">
+                <div class="col-md-4">
+                    <img ng-src="{{ friend.photo }}" class="profile-image-block profile-border">
+                </div>
+                <div class="col-md-4">
+                    <h3><user-link data="friend"></user-link></h3>
+                    <h6>{{ friend.email }}</h6>
+                </div>
+                <div class="col-md-4 text-align-right">
+                    <div class="row">
+                        <div class="text-align-center alert alert-info" role="alert">This user wants to add you as {{ friend.category }} </div>
+                    </div>
+                    <div class="row">
+                        <div class="btn-group add-float-left" dropdown is-open="status.isopen">
+                            <p><a class="btn btn-success btn-sm" dropdown-toggle type="button"><span class="fa fa-check"></span> Confirm <span class="caret"></span></a></p>
+                            <ul class="dropdown-menu" role="menu">
+                                <li class="add-cursor-pointer" ng-repeat="category in categories" ng-click="confirmFriend(friend.id, category.id)" ><a>{{ category.name }}</a></li>
+                            </ul>
+                        </div>
+                        <div  ng-click="removeFriend(friend.id)" ><p><a class="btn btn-danger btn-sm" role="button"><span class="fa fa-close"></span> Reject</a></p></div>
+
+                    </div>
+                    <div class="row">
+                        <wish-link data="friend"></wish-link>
+                    </div>
+                </div>
+            </div>
+            <hr class="friends-hr-style"/>
+        </div>
+
+        <div class="centered-info" ng-repeat="friend in friends" ng-if="friend.status==='friend'">
+            <div class="row">
+                <div class="col-md-4">
+                    <img ng-src="{{ friend.photo }}" class="profile-image-block profile-border">
+                </div>
+                <div class="col-md-4">
+                    <h3><user-link data="friend"></user-link></h3>
+                    <h6>{{ friend.email }}</h6>
+                    <h5><span class="label label-info">{{ friend.category }}</span></h5>
+                </div>
+                <div class="col-md-4 text-align-right">
+                    <div class="row">
+                        <p ng-click="removeFriend(friend.id)"><a class="btn btn-danger btn-sm" role="button"><span class="fa fa-close"></span> Remove from friends</a></p>
+                    </div>
+                    <div class="btn-group row" dropdown is-open="status.isopen">
+                        <p><button class="btn btn-primary btn-sm" dropdown-toggle type="button"><span class="fa fa-edit"></span> Edit category <span class="caret"></span></button></p>
+                        <ul class="dropdown-menu" role="menu">
+                            <li class="add-cursor-pointer" ng-if="category.name != friend.category" ng-repeat="category in categories" ng-click="editCategory(friend.id, category.id)" ><a>{{ category.name }}</a></li>
+                        </ul>
+                    </div>
+                    <div class="row">
+                        <wish-link data="friend"></wish-link>
+                    </div>
+                </div>
+            </div>
+            <hr class="friends-hr-style"/>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,33 @@
+<div class="container" >
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="jumbotron main-block">
+                <h1>What is it?</h1>
+                <p> Let me introduce! It is a specific tool, that helps You store wishes</p>
+            </div>
+        </div>
+        <div class="col-md-4 col-md-offset-2">
+            <div class="masthead">
+                <nav>
+                    <ul class="nav nav-justified">
+                        <div class="text-center main-block light-font-color">
+                            <p><h1>Let's start!</h1> </p>
+                            <hr>
+                        </div>
+                        <br>
+                    </ul>
+                </nav>
+            </div>
+
+            <div class="form-group light-font-color">
+                 <label for="email"><span class="fa fa-user"></span> Email</label>
+                 <input ng-model="RegEmail" type="email" class="form-control" placeholder="Enter email" id="email" class="sr-only" required autofocus>
+            </div>
+
+            <button type="button" ui-sref="registration({email: RegEmail})" class="btn btn-lg btn-success btn-block"><span class="fa fa-user-plus"></span> Sign up now!</button>
+
+        </div>
+    </div>
+</div>
+
